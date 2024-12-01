@@ -6,17 +6,14 @@ import bcrypt from 'bcrypt';
 const prisma = new PrismaClient();
 const authRoutes = new Hono();
 
-// Login endpoint using Basic Auth
+// Login endpoint using JSON credentials
 authRoutes.post('/login', async (c) => {
   try {
-    const authHeader = c.req.header('Authorization');
-    if (!authHeader) {
-      return c.json({ error: 'Authorization header missing' }, 401);
-    }
+    const { email, password } = await c.req.json();
 
-    // Extract credentials from Basic Auth header
-    const [, credentials] = authHeader.split(' ');
-    const [email] = Buffer.from(credentials, 'base64').toString().split(':');
+    if (!email || !password) {
+      return c.json({ error: 'Email and password are required' }, 400);
+    }
 
     // Get user data
     const user = await prisma.user.findUnique({
@@ -24,7 +21,13 @@ authRoutes.post('/login', async (c) => {
     });
 
     if (!user) {
-      return c.json({ error: 'User not found' }, 401);
+      return c.json({ error: 'Invalid credentials' }, 401);
+    }
+
+    // Verify password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      return c.json({ error: 'Invalid credentials' }, 401);
     }
 
     // Generate JWT token
