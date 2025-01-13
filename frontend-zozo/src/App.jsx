@@ -5,6 +5,7 @@ import Homepage from "./components/homepage/Homepage";
 import Test from "./components/Test";
 import Exercises from "./components/exercises/Exercises";
 import Routines from "./components/Routines/Routines";
+import ExercisesDescription from "./components/exercises/ExercisesDescription";
 
 
 function App() {
@@ -15,8 +16,9 @@ function App() {
      <Routes>
      <Route index element={<Homepage />} />
      <Route path="test" element={<Test />} />
-     <Route path="Routines" element={<Routines/>} />
-     <Route path="Exercises" element={<Exercises />}  />
+     <Route path="routines" element={<Routines/>} />
+     <Route path="exercises" element={<Exercises />} />
+     <Route path="exercises/:id" element={<ExercisesDescription />}   />
     </Routes>
 
     </>
