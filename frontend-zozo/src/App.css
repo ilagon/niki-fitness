@@ -1,0 +1,29 @@
+body {
+    background-color: #a0b1ff; /* Match the background color of .routines-container */
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default paddings */
+    min-height: 100vh; /* Ensure it covers the full viewport height */
+    font-family: 'Playfair Display', sans-serif;
+  }
+
+  .container {
+    max-width: 1024px;
+    margin: 0 auto; /* Center horizontally */
+    padding: 40px;
+    font-family: Playfair Display, sans-serif;
+    font-weight: lighter;
+    min-height: 100vh;
+  }
+
+  .card {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space between text and image */
+    align-items: center; /* Align items vertically */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+
+  }

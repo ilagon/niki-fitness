@@ -1,0 +1,65 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    background: #a0b1ff;;
+    padding: 10px;
+    position: relative;
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+}
+
+aside {
+    width: 250px;
+    opacity: 80%;
+    background: #D9D9D9;
+    color: black;
+    position: fixed;
+    top: 0;
+    right: -250px;
+    height: 100%;
+    transition: right 0.3s;
+    z-index: 1;
+}
+
+aside.open {
+    right: 0;
+}
+
+aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    padding: 10px;
+}
+
+aside nav ul li:hover {
+    text-decoration: underline;
+}
+
+aside nav ul li a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+
+.burger-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    z-index: 2;
+}
