@@ -1,24 +1,27 @@
-import { serve } from '@hono/node-server'
-import { Hono } from 'hono'
-import workoutRoutes from './endpoints/workout.js'
-import authRoutes from './endpoints/auth.js'
-import exerciseRoutes from './endpoints/exercise.js'
+import { serve } from "@hono/node-server";
+import { Hono } from "hono";
+import workoutRoutes from "./endpoints/workout.js";
+import authRoutes from "./endpoints/auth.js";
+import exerciseRoutes from "./endpoints/exercise.js";
+import { cors } from "hono/cors";
 
-const app = new Hono()
+const app = new Hono();
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+app.use("/api/*", cors());
+
+app.get("/", (c) => {
+  return c.text("Hello Hono!");
+});
 
 // Mount routes
-app.route('/api/workouts', workoutRoutes)
-app.route('/api/auth', authRoutes)
-app.route('/api/exercises', exerciseRoutes)
+app.route("/api/workouts", workoutRoutes);
+app.route("/api/auth", authRoutes);
+app.route("/api/exercises", exerciseRoutes);
 
-const port = 3000
-console.log(`Server is running on http://localhost:${port}`)
+const port = 3000;
+console.log(`Server is running on http://localhost:${port}`);
 
 serve({
   fetch: app.fetch,
-  port
-})
+  port,
+});
