@@ -1,43 +1,10 @@
 // import { useState } from "react";
+import InputModal from "../InputModal/Modal";
 import "./Exercises.css"; // Ensure you add the styling here
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const Exercises = () => {
-  // const exercises = [
-  //   {
-  //     id: 1,
-  //     name: "Squats",
-  //     type: "Strength",
-  //     focus: "Legs",
-  //     weight: "20kg",
-  //     reps: "12",
-  //     time: "60 seconds",
-  //     sets: "3 sets",
-  //     imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Bench Press",
-  //     type: "Strength",
-  //     focus: "Chest",
-  //     weight: "50kg",
-  //     reps: "10",
-  //     time: "45 seconds",
-  //     sets: "3 sets",
-  //     imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Deadlift",
-  //     type: "Strength",
-  //     focus: "Back",
-  //     weight: "80kg",
-  //     reps: "8",
-  //     time: "90 seconds",
-  //     sets: "3 sets",
-  //     imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-  //   },
-  // ];
 
   /* React Query method */
   const {
@@ -55,16 +22,24 @@ const Exercises = () => {
     },
   });
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleModal = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="container">
       {/* <header className="header"> */}
       <h1>Exercises</h1>
       <div className="controls">
         <button className="filter-button">Filter</button>
-        <button className="add-exercise-button">Add exercise</button>
+        <button className="add-exercise-button" onClick={toggleModal}>Add exercise</button>
       </div>
       {/* </header> */}
       <div className="exercise-list">
+        {isLoading && <p>Loading...</p>}
+        {isError && <p>Error loading exercises</p>}
         {data.map((exercise) => (
           <div className="card" key={exercise.id}>
             <div className="exercise-details">
@@ -80,6 +55,7 @@ const Exercises = () => {
           </div>
         ))}
       </div>
+      <InputModal isOpen={isOpen} setIsOpen={setIsOpen} inputType="exercises" />
     </div>
   );
 };

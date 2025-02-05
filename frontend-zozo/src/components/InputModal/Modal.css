@@ -1,0 +1,32 @@
+.Modal {
+    top: '50%';
+    left: '50%';
+    right: 'auto';
+    bottom: 'auto';
+    margin-right: '-50%';
+    transform: 'translate(-50%, -50%)';
+}
+
+.Modal-exercises label {
+    display: flex;
+    align-items: center;
+}
+
+.Modal-exercises input {
+    margin-left: 10px;
+    width: 100%;
+}
+.Modal-exercises {
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    column-gap: 20px;
+    width: 400px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+}

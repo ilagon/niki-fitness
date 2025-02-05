@@ -36,8 +36,8 @@ const Routines = () => {
           <div className="card" key={routine.id}>
             <div className="routine-details">
               <h2>{routine.name}</h2>
-              {routine.exercises.map((exercise) => (
-                <li key={exercise}>{exercise}</li>
+              {routine.exercises.map((exercise, idx) => (
+                <li key={idx}>{exercise}</li>
               ))}
             </div>
             <img src={routine.imageUrl} className="routine-image" />
