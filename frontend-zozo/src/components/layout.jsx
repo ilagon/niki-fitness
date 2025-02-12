@@ -1,10 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Layout.css';
-import { Outlet, NavLink } from 'react-router';
+import { Outlet, NavLink, useNavigate } from 'react-router';
 
 const Layout = () => {
   const [isOpen, setIsOpen] = useState(false);
   const drawerRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);

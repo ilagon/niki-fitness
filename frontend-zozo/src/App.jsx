@@ -6,10 +6,12 @@ import Exercises from "./components/exercises/Exercises";
 import Routines from "./components/routines/Routines";
 import ExercisesDescription from "./components/exercises/ExercisesDescription";
 import Layout from './components/layout';
+import Login from './components/auth/Login';
 
 function App() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route element={<Layout />}>
         <Route index element={<Homepage />} />
         <Route path="test" element={<Test />} />

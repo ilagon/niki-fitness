@@ -11,10 +11,21 @@ const Exercises = () => {
     data = [],
     isLoading,
     isError,
+    refetch
   } = useQuery({
     queryKey: ["exercises"],
     queryFn: async () => {
-      const response = await fetch("http://localhost:3000/api/exercises");
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error("No authentication token found");
+      }
+
+      const response = await fetch("http://localhost:3000/api/exercises", {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
@@ -55,7 +66,7 @@ const Exercises = () => {
           </div>
         ))}
       </div>
-      <InputModal isOpen={isOpen} setIsOpen={setIsOpen} inputType="exercises" />
+      <InputModal isOpen={isOpen} setIsOpen={setIsOpen} inputType="exercises" refetch={refetch} />
     </div>
   );
 };

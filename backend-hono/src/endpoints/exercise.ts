@@ -19,7 +19,7 @@ type Exercise = {
 };
 
 // Apply JWT middleware to all routes
-// exerciseRoutes.use("/*", jwtMiddleware);
+exerciseRoutes.use("/*", jwtMiddleware);
 
 // Get all exercises (accessible to all authenticated users)
 exerciseRoutes.get("/", async (c) => {
