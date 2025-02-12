@@ -6,6 +6,9 @@
     "test": "vitest run",
     "test:watch": "vitest"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
     "@prisma/client": "^6.0.1",
