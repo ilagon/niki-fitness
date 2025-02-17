@@ -1,42 +1,79 @@
+import { useParams } from "react-router";
+import { useQuery } from "@tanstack/react-query";
+import "./ExercisesDescription.css";
+
 const ExercisesDescription = () => {
-  const exercisebreakdown = [
-    {
-      id: 1,
-      name: "Squats",
-      type: "Strength",
-      focus: "Legs",
-      weight: "20kg",
-      reps: "12",
-      time: "60 seconds",
-      sets: "3 sets",
-      imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-      description:
-        "1. Hold a dumbbell in each hand, and stand with your feet about shoulder width apart. Inhale, lightly brace your core, and squat down as deep as possible.Reverse the movement, and return to a standing position. Exhale on the way up.",
-    },
-  ];
+  const { id } = useParams();
+
+  const getExercise = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No authentication token found");
+    }
+
+    const response = await fetch(`http://localhost:3000/api/exercises/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
+
+  const { data: exercise, isLoading, isError } = useQuery({
+    queryKey: ["exercise", id],
+    queryFn: getExercise,
+  });
 
   return (
-    <>
-      {exercisebreakdown.map((exercise) => (
-        <div key={exercise.id} className="exercises-container"> 
-          <div className="exercise-description-card" key={exercise.id}>
-            <h2>{exercise.name}</h2>
+    <div className="exercise-description-page">
+      {isLoading && <p>Loading...</p>}
+      {isError && <p>Error loading exercise</p>}
+      {exercise && (
+        <div className="exercise-description-container">
+          <div className="exercise-description-header">
+            <h1 className="exercise-description-name">{exercise.name}</h1>
+            <span className="exercise-description-type">{exercise.type}</span>
+          </div>
 
-            <div className="exercise-description-details">
-            <img src={exercise.imageUrl} className="exercise-description-image" />
-              <p>{exercise.type}</p>
-              <p>{exercise.focus}</p>
-              <p>
-                {exercise.weight} | {exercise.reps} reps | {exercise.time} |{" "}
-                {exercise.sets}{" "}
-              </p>
-            
-            <p>{exercise.description}</p>
+          <div className="exercise-description-image">
+            <img src={exercise.imageUrl} alt={exercise.name} />
+          </div>
+
+          <div className="exercise-description-details">
+            <div className="summary-section">
+              <h3>Summary</h3>
+              <ul>
+                <li>{exercise.sets} sets</li>
+                <li>{exercise.reps} reps</li>
+                <li>{exercise.time}</li>
+              </ul>
             </div>
+
+            <div className="anatomy-section">
+              <h3>Anatomy:</h3>
+              <p>{exercise.focus}</p>
+            </div>
+
+            {/* <div className="description-section">
+              <h3>Description</h3>
+              <p>{exercise.description}</p>
+            </div> */}
+
+            {exercise.link && (
+              <div className="link-section">
+                <a href={exercise.link} target="_blank" rel="noopener noreferrer">
+                  LINK
+                </a>
+              </div>
+            )}
           </div>
         </div>
-      ))}
-    </>
+      )}
+    </div>
   );
 };
 

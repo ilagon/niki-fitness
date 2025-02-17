@@ -25,5 +25,9 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     padding: 15px;
+  }
 
+  .link-style {
+    text-decoration: none;
+    color: inherit;
   }
