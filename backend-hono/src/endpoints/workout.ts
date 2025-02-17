@@ -31,11 +31,38 @@ workoutRoutes.get('/', async (c) => {
         }
       }
     });
-    return c.json(routines);
+    const formatedRoutines = formatWorkoutNameList(routines);
+    return c.json(formatedRoutines);
   } catch (error) {
     return c.json({ error: 'Failed to fetch workouts' }, 500);
   }
 });
+
+interface Routine {
+  id: number;
+  exercises: {
+    exercise: {
+      name: string;
+    };
+  }[];
+  exerciseList?: string[];
+}
+
+type RoutineResponse = Omit<Routine, 'exercises'> & {
+  exerciseList: string[];
+};
+
+function formatWorkoutNameList(routines: Routine[]): RoutineResponse[] {
+  return routines.map((routine) => {
+    const { exercises, ...routineWithoutExercises } = routine;
+    const exerciseList = exercises.map(exercise => exercise.exercise.name);
+    
+    return {
+      ...routineWithoutExercises,
+      exerciseList
+    };
+  });
+}
 
 // Get workout by ID (only if user created it)
 workoutRoutes.get('/:id', async (c) => {

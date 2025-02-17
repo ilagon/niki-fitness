@@ -1,26 +1,38 @@
 import "./Routines.css";
+import { useQuery } from "@tanstack/react-query";
 
 const Routines = () => {
-  const routines = [
-    {
-      id: 1,
-      name: "Morning Routine",
-      exercises: ["Squats", "Squats", "Squats"],
-      imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-    },
-    {
-      id: 2,
-      name: "After Work Routine",
-      exercises: ["Squats", "Squats", "Squats"],
-      imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-    },
-    {
-      id: 3,
-      name: "Weekend Routine",
-      exercises: ["Squats", "Squats", "Squats"],
-      imageUrl: "https://via.placeholder.com/100x60", // Placeholder image URL
-    },
-  ];
+
+  const getWorkoutList = async () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      throw new Error("No authentication token found");
+    }
+
+    const response = await fetch("http://localhost:3000/api/workouts", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    return response.json();
+  };
+
+  const { data: workoutList, isLoading, isError } = useQuery({
+    queryKey: ["workoutList"],
+    queryFn: getWorkoutList,
+  });
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
+  if (isError) {
+    return <p>Error loading workout list</p>;
+  }
 
   return (
     <div className="container">
@@ -32,15 +44,15 @@ const Routines = () => {
       </div>
       {/* </header> */}
       <div className="routine-list">
-        {routines.map((routine) => (
-          <div className="card" key={routine.id}>
+        {workoutList.map((workout) => (
+          <div className="card" key={workout.id}>
             <div className="routine-details">
-              <h2>{routine.name}</h2>
-              {routine.exercises.map((exercise, idx) => (
+              <h2>{workout.name}</h2>
+              {workout.exerciseList.map((exercise, idx) => (
                 <li key={idx}>{exercise}</li>
               ))}
             </div>
-            <img src={routine.imageUrl} className="routine-image" />
+            <img src={workout.imageUrl} className="routine-image" />
           </div>
         ))}
       </div>
