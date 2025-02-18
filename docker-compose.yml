@@ -7,6 +7,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "5413:80"
+    environment:
+      - BACKEND_URL=${BACKEND_URL}
     depends_on:
       - backend
     networks:
@@ -21,7 +23,7 @@ services:
     environment:
       - NODE_ENV=development
       # Add other environment variables as needed
-      # - DATABASE_URL=
+      - DATABASE_URL=${DATABASE_URL}
     networks:
       - niki-fitness-network
     volumes:
