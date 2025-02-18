@@ -13,6 +13,7 @@ function InputModal({isOpen, setIsOpen, inputType, refetch}) {
       right: 'auto',
       bottom: 'auto',
       marginRight: '-50%',
+      maxHeight: '75vh',
       transform: 'translate(-50%, -50%)',
     },
   };

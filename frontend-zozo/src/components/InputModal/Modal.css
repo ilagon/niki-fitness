@@ -3,7 +3,7 @@
   left: '50%';
   right: 'auto';
   bottom: 'auto';
-  max-height: 75vh;
+  max-height: 80vh;
   margin-right: '-50%';
   transform: 'translate(-50%, -50%)';
 }
@@ -12,7 +12,6 @@
   /* background-color: #E6E6E6; */
   /* padding: 2rem; */
   border-radius: 15px;
-  width: 90%;
   max-width: 500px;
   display: flex;
   flex-direction: column;
