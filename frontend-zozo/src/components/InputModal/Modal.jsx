@@ -28,6 +28,8 @@ function InputModal({isOpen, setIsOpen, inputType, refetch}) {
 }
 
 function ExercisesForm({setIsOpen, refetch}) {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [focus, setFocus] = useState("");
@@ -49,7 +51,7 @@ function ExercisesForm({setIsOpen, refetch}) {
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch('http://localhost:3000/api/exercises', {
+      const response = await fetch(`${backendUrl}/api/exercises`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

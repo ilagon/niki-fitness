@@ -3,6 +3,8 @@ import { useQuery } from "@tanstack/react-query";
 import "./ExercisesDescription.css";
 
 const ExercisesDescription = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+
   const { id } = useParams();
 
   const getExercise = async () => {
@@ -11,7 +13,7 @@ const ExercisesDescription = () => {
       throw new Error("No authentication token found");
     }
 
-    const response = await fetch(`http://localhost:3000/api/exercises/${id}`, {
+    const response = await fetch(`${backendUrl}/api/exercises/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

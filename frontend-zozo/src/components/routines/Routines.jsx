@@ -2,6 +2,7 @@ import "./Routines.css";
 import { useQuery } from "@tanstack/react-query";
 
 const Routines = () => {
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
   const getWorkoutList = async () => {
     const token = localStorage.getItem("token");
@@ -9,7 +10,7 @@ const Routines = () => {
       throw new Error("No authentication token found");
     }
 
-    const response = await fetch("http://localhost:3000/api/workouts", {
+    const response = await fetch(`${backendUrl}/api/workouts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

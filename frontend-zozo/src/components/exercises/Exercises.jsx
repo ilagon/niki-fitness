@@ -7,6 +7,8 @@ import { Link } from "react-router";
 
 const Exercises = () => {
   /* React Query method */
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
   const {
     data = [],
     isLoading,
@@ -20,7 +22,7 @@ const Exercises = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch("http://localhost:3000/api/exercises", {
+      const response = await fetch(`${backendUrl}/api/exercises`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
