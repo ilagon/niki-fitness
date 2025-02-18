@@ -28,7 +28,6 @@ function InputModal({isOpen, setIsOpen, inputType, refetch}) {
 }
 
 function ExercisesForm({setIsOpen, refetch}) {
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");
@@ -51,7 +50,7 @@ function ExercisesForm({setIsOpen, refetch}) {
         throw new Error('No authentication token found');
       }
 
-      const response = await fetch(`${backendUrl}/api/exercises`, {
+      const response = await fetch(`https://niki-backend.lorenzocoded.dev/api/exercises`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

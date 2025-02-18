@@ -8,7 +8,6 @@ import { Link } from "react-router";
 const Exercises = () => {
   /* React Query method */
 
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
   const {
     data = [],
     isLoading,
@@ -22,7 +21,7 @@ const Exercises = () => {
         throw new Error("No authentication token found");
       }
 
-      const response = await fetch(`${backendUrl}/api/exercises`, {
+      const response = await fetch(`https://niki-backend.lorenzocoded.dev/api/exercises`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

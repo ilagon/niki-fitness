@@ -3,7 +3,6 @@ import { useQuery } from "@tanstack/react-query";
 import "./ExercisesDescription.css";
 
 const ExercisesDescription = () => {
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const { id } = useParams();
 
@@ -13,7 +12,7 @@ const ExercisesDescription = () => {
       throw new Error("No authentication token found");
     }
 
-    const response = await fetch(`${backendUrl}/api/exercises/${id}`, {
+    const response = await fetch(`https://niki-backend.lorenzocoded.dev/api/exercises/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

@@ -10,7 +10,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const handleChange = (e) => {
     setFormData({
@@ -25,7 +24,7 @@ const Login = () => {
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${backendUrl}/api/auth/login`, {
+      const response = await fetch(`https://niki-backend.lorenzocoded.dev/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

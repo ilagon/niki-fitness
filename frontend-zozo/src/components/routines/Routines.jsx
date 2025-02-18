@@ -2,15 +2,13 @@ import "./Routines.css";
 import { useQuery } from "@tanstack/react-query";
 
 const Routines = () => {
-  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
-
   const getWorkoutList = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
       throw new Error("No authentication token found");
     }
 
-    const response = await fetch(`${backendUrl}/api/workouts`, {
+    const response = await fetch(`https://niki-backend.lorenzocoded.dev/api/workouts`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
