@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend-zozo
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - niki-fitness-network
+
+  backend:
+    build:
+      context: ./backend-hono
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      # Add other environment variables as needed
+      # - DATABASE_URL=
+    networks:
+      - niki-fitness-network
+    volumes:
+      - ./backend-hono:/app
+      - /app/node_modules
+
+networks:
+  niki-fitness-network:
+    driver: bridge
