@@ -28,7 +28,7 @@ function InputModal({isOpen, setIsOpen, inputType, refetch}) {
 }
 
 function ExercisesForm({setIsOpen, refetch}) {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const [name, setName] = useState("");
   const [type, setType] = useState("");

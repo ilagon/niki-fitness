@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import "./ExercisesDescription.css";
 
 const ExercisesDescription = () => {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const { id } = useParams();
 

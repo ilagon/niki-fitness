@@ -2,7 +2,7 @@ import "./Routines.css";
 import { useQuery } from "@tanstack/react-query";
 
 const Routines = () => {
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
 
   const getWorkoutList = async () => {
     const token = localStorage.getItem("token");

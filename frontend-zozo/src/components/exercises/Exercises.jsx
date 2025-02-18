@@ -8,7 +8,7 @@ import { Link } from "react-router";
 const Exercises = () => {
   /* React Query method */
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  const backendUrl = import.meta.env.BACKEND_URL || 'http://localhost:3000';
   const {
     data = [],
     isLoading,
