@@ -1,25 +1,27 @@
-# Use Node.js LTS version as the base image
-FROM node:20-slim
+FROM node:20-alpine AS base
 
-# Set working directory
+FROM base AS builder
+
+RUN apk add --no-cache gcompat
 WORKDIR /app
 
-# Copy package files
-COPY package*.json ./
-COPY prisma ./prisma/
+COPY package*json tsconfig.json src ./
 
-# Install dependencies
-RUN npm install
+RUN npm ci && \
+    npm run build && \
+    npm prune --production
 
-# Copy the rest of the application
-COPY . .
+FROM base AS runner
+WORKDIR /app
 
-# Generate Prisma Client
-RUN npx prisma generate
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 hono
 
-# Build the application (if needed)
-# Expose the port the app runs on
+COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
+COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
+COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+
+USER hono
 EXPOSE 3000
 
-# Command to run the application
-CMD ["npm", "run", "dev"]
+CMD ["node", "/app/dist/index.js"]
