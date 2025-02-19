@@ -13,9 +13,9 @@ services:
       - "traefik.http.routers.frontend.entrypoints=websecure" # Or websecure if using HTTPS
       - "traefik.http.routers.frontend.tls.certresolver=myresolver" # Your certificate resolver name (configured in Traefik)
       - "traefik.http.services.frontend.loadbalancer.server.port=80" # Port your app listens on inside the container
-      - "traefik.http.middlewares.frontend-spa.forwardregex.regex=^/(?!index\.html|static|.*\.js|.*\.css)(.*)"
-      - "traefik.http.middlewares.frontend-spa.forwardregex.replacement=/index.html"
-      - "traefik.http.routers.frontend.middlewares=frontend-spa" # Apply the middleware
+      # - "traefik.http.middlewares.frontend-spa.forwardregex.regex=^/(?!index\.html|static|.*\.js|.*\.css)(.*)"
+      # - "traefik.http.middlewares.frontend-spa.forwardregex.replacement=/index.html"
+      # - "traefik.http.routers.frontend.middlewares=frontend-spa" # Apply the middleware
     environment:
       - BACKEND_URL=${BACKEND_URL}
     depends_on:
