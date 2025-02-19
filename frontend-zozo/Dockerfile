@@ -25,4 +25,4 @@ RUN npm ci && npm install -g serve
 
 # Expose port 3000 and start serve
 EXPOSE 3000
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["serve", "-s", "dist", "-l", "80"]
