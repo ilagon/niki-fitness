@@ -11,10 +11,12 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.rule=Host(`niki-fitness.lorenzocoded.dev`)" # Your domain
       - "traefik.http.routers.frontend.entrypoints=websecure" # Or websecure if using HTTPS
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver" # Your certificate resolver name (configured in Traefik)
       - "traefik.http.services.frontend.loadbalancer.server.port=80" # Port your app listens on inside the container
       - "traefik.http.middlewares.frontend-spa.replacepathregex.regex=^/(.*)" # For SPA routing
       - "traefik.http.middlewares.frontend-spa.replacepathregex.replacement=/index.html" # For SPA routing
       - "traefik.http.routers.frontend.middlewares=frontend-spa" # Apply the middleware
+
     environment:
       - BACKEND_URL=${BACKEND_URL}
     depends_on:
