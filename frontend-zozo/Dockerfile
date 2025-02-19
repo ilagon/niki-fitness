@@ -23,6 +23,6 @@ COPY package*.json ./
 # Install production dependencies and global serve
 RUN npm ci && npm install -g serve
 
-# Expose port 3000 and start serve
-EXPOSE 3000
+# Expose port 80 and start serve
+EXPOSE 80
 CMD ["serve", "-s", "dist", "-l", "80"]
